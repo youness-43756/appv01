@@ -1,7 +1,8 @@
 "use client";
 import { useRef, useState } from "react";
-import { RiClipboardLine } from "react-icons/ri";
 import { FaPlus, FaTrash } from "react-icons/fa6";
+import Result from "./results/page";
+import Form from "./Form/page";
 
 export default function MagicCalculator() {
   const inputField = useRef();
@@ -9,7 +10,8 @@ export default function MagicCalculator() {
   const inputFieldFactor2 = useRef();
   const [disable, setDisable] = useState(true);
   const [res, setRes] = useState([]);
-  function CalculHandler() {
+  function CalculHandler(ev) {
+    ev.preventDefault();
     const input1 = inputField.current.value;
     const input2 = inputFieldFactor1.current.value;
     if (input1 === "" || input2 === 0) {
@@ -27,13 +29,13 @@ export default function MagicCalculator() {
     }
   }
   function NewLine() {
-    const lastLine = res[res.length - 1].line2;
+    // const lastLine = res[res.length - 1].line2;
+    const firstLine = res[0].line2;
     const nextLine = Math.pow(
-      Math.sqrt(lastLine) + Number(inputFieldFactor2.current.value),
+      Math.sqrt(firstLine) + Number(inputFieldFactor2.current.value),
       2
     );
     setRes([
-      ...res,
       {
         id: Math.random() + 0.00005,
         line1: nextLine,
@@ -42,6 +44,7 @@ export default function MagicCalculator() {
           2
         ),
       },
+      ...res,
     ]);
   }
   function RemoveAll() {
@@ -52,82 +55,47 @@ export default function MagicCalculator() {
     navigator.clipboard.writeText(text);
   }
   return (
-    <div className="w-full md:px-8 px-2">
-      <div className="grid grid-cols-4 md:gap-8 gap-4 h-screen content-center place-items-center">
-        <section className="md:col-span-1 col-span-full flex justify-center flex-wrap gap-2 h-fit w-full">
-          <input
-            min={0}
-            type="number"
-            className="input input-bordered w-full shadow-sm"
-            required
-            placeholder="Enter line number.."
-            ref={inputField}
-          />
-          <input
-            min={0}
-            type="number"
-            required
-            placeholder="First factor.."
-            className="input input-bordered md:w-44 w-36 shadow-sm"
-            ref={inputFieldFactor1}
-          />
-          <input
-            min={0}
-            required
-            type="number"
-            placeholder="Second factor.."
-            className="input input-bordered md:w-44 w-36 shadow-sm"
-            ref={inputFieldFactor2}
-          />
-          <button
-            onClick={CalculHandler}
-            disabled={!disable}
-            className="btn w-full bg-neutral text-white shadow-sm"
-          >
-            Go
-          </button>
-        </section>
-        <section className="md:col-span-3 col-span-full h-[50vh] bg-neutral-100 md:w-4/5 w-full text-neutral-800 md:p-4 p-2 rounded-md relative overflow-hidden overflow-y-scroll shadow-sm">
-          {res.length === 0 ? (
-            <div className="text-center my-10 text-2xl font-medium text-neutral-400 select-none">
-              Empty!
-            </div>
-          ) : (
-            <div className="mb-4 px-1">
-              {res.map((l) => (
-                <div className="border-b py-4" key={l.id}>
-                  <p className="cursor-pointer">
-                    <b className="text-orange-600">Line 1: </b>
-                    <span onClick={() => CopieText(l.line1)}>
-                      {l.line1} <RiClipboardLine className="inline" size={18} />
-                    </span>
-                  </p>
-                  <p className="cursor-pointer">
-                    <b className="text-orange-600">Line 2: </b>
-                    <span onClick={() => CopieText(l.line2)}>
-                      {l.line2} <RiClipboardLine className="inline" size={18} />
-                    </span>
-                  </p>
-                </div>
-              ))}
-            </div>
-          )}
-          <div className="backdrop-blur-sm bg-white/10 rounded-md sticky bottom-0 left-2 right-2">
-            <button
-              className="btn btn-sm btn-primary shadow-sm"
-              onClick={NewLine}
-              disabled={disable}
-            >
-              Add Support <FaPlus />
-            </button>
-            <button
-              className="btn btn-sm btn-error text-white float-right shadow-sm"
-              onClick={RemoveAll}
-            >
-              Remove All <FaTrash />
-            </button>
+    <div className="md:px-8 px-2">
+      <div className="h-screen flex items-center justify-center">
+        <div className="bg-neutral-200 grid grid-cols-5 w-full gap-4 p-4 rounded-md">
+          <div className="grid content-center place-content-center md:col-span-2 col-span-full">
+            <Form
+              disable={disable}
+              inputField={inputField}
+              CalculHandler={CalculHandler}
+              inputFieldFactor1={inputFieldFactor1}
+              inputFieldFactor2={inputFieldFactor2}
+            />
           </div>
-        </section>
+          <section className="md:col-span-3 h-[60vh] bg-neutral-100 text-neutral-800 md:p-4 p-2 rounded-md overflow-hidden overflow-y-scroll shadow-sm relative col-span-full">
+            <div>
+              <button
+                className="btn btn-sm btn-info text-neutral-100 shadow-sm"
+                onClick={NewLine}
+                disabled={disable}
+              >
+                Add Support <FaPlus />
+              </button>
+              <button
+                className="btn btn-sm btn-error text-white float-right shadow-sm"
+                onClick={RemoveAll}
+              >
+                Remove All <FaTrash />
+              </button>
+            </div>
+            {res.length === 0 ? (
+              <div className="text-2xl font-medium grid content-center place-content-center text-neutral-400 select-none absolute top-0 left-0 bottom-0 right-0">
+                Empty!
+              </div>
+            ) : (
+              <div className="mb-4 px-1">
+                {res.map((l) => (
+                  <Result key={l.id} result={l} CopieText={CopieText} />
+                ))}
+              </div>
+            )}
+          </section>
+        </div>
       </div>
     </div>
   );

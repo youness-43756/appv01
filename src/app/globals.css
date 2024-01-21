@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.button {
+    @apply btn btn-info shadow-sm text-white dark:text-neutral-100
+}
