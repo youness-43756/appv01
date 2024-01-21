@@ -3,9 +3,6 @@ import { useRef, useState } from "react";
 import { FaPlus, FaTrash } from "react-icons/fa6";
 import { RiClipboardLine } from "react-icons/ri";
 
-// import Result from "./results/page";
-// import Form from "./Form/page";
-
 export default function MagicCalculator() {
   const [msg, setMsg] = useState("Copie!");
 
@@ -30,7 +27,6 @@ export default function MagicCalculator() {
         },
         ...prev,
       ]);
-      console.log(res);
     }
   }
   function NewLine() {
@@ -69,13 +65,6 @@ export default function MagicCalculator() {
       <div className="h-screen flex items-center justify-center">
         <div className="bg-neutral-200 grid grid-cols-5 w-full gap-4 p-4 rounded-md">
           <div className="grid content-center place-content-center md:col-span-2 col-span-full">
-            {/* <Form
-              disable={disable}
-              inputField={inputField}
-              CalculHandler={CalculHandler}
-              inputFieldFactor1={inputFieldFactor1}
-              inputFieldFactor2={inputFieldFactor2}
-            /> */}
             <div className="flex justify-center items-center flex-wrap gap-2 py-4 h-[35vh]">
               <input
                 min={0}
@@ -134,7 +123,6 @@ export default function MagicCalculator() {
             ) : (
               <div className="mb-4 px-1">
                 {res.map((l) => (
-                  // <Result key={l.id} result={l} CopieText={CopieText} />
                   <div className="border-b py-4" key={l.id}>
                     <div className="flex items-center gap-2">
                       <div className="text-orange-600 font-semibold">
