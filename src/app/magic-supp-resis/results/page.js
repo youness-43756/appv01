@@ -8,7 +8,7 @@ export default function Result({ result, CopieText }) {
     setMsg("Copied!");
     setTimeout(() => {
       setMsg("Copie!");
-    }, 1500);
+    }, 1200);
     CopieText(line);
   }
   return (

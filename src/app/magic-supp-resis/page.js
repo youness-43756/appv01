@@ -10,6 +10,7 @@ export default function MagicCalculator() {
   const inputFieldFactor2 = useRef();
   const [disable, setDisable] = useState(true);
   const [res, setRes] = useState([]);
+
   function CalculHandler() {
     const input1 = inputField.current.value;
     const input2 = inputFieldFactor1.current.value;
@@ -18,23 +19,25 @@ export default function MagicCalculator() {
     } else {
       setDisable(() => false);
       setRes([
-        ...res,
         {
           id: Math.random() + 0.00005,
-          line1: inputField.current.value,
+          line1: Number(inputField.current.value),
           line2: Math.pow(Math.sqrt(Number(input1)) + Number(input2), 2),
         },
+        ...res,
       ]);
+      console.log(res);
     }
   }
   function NewLine() {
-    // const lastLine = res[res.length - 1].line2;
-    const firstLine = res[0].line2;
+    const firstLine = res[res.length - 1].line2;
+    // const firstLine = res[0].line2;
     const nextLine = Math.pow(
       Math.sqrt(firstLine) + Number(inputFieldFactor2.current.value),
       2
     );
     setRes([
+      ...res,
       {
         id: Math.random() + 0.00005,
         line1: nextLine,
@@ -43,8 +46,8 @@ export default function MagicCalculator() {
           2
         ),
       },
-      ...res,
     ]);
+    console.log(res);
   }
   function RemoveAll() {
     setRes([]);
