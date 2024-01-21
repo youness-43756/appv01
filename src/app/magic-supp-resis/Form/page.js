@@ -32,6 +32,7 @@ export default function Form({
         ref={inputFieldFactor2}
       />
       <button
+        type="submit"
         onClick={CalculHandler}
         disabled={!disable}
         className="btn w-full btn-outline text-lg shadow-sm md:btn-md btn-sm"

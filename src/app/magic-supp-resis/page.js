@@ -1,10 +1,14 @@
 "use client";
 import { useRef, useState } from "react";
 import { FaPlus, FaTrash } from "react-icons/fa6";
-import Result from "./results/page";
-import Form from "./Form/page";
+import { RiClipboardLine } from "react-icons/ri";
+
+// import Result from "./results/page";
+// import Form from "./Form/page";
 
 export default function MagicCalculator() {
+  const [msg, setMsg] = useState("Copie!");
+
   const inputField = useRef();
   const inputFieldFactor1 = useRef();
   const inputFieldFactor2 = useRef();
@@ -18,26 +22,25 @@ export default function MagicCalculator() {
       alert("Fill all inputs!!");
     } else {
       setDisable(() => false);
-      setRes([
+      setRes((prev) => [
         {
           id: Math.random() + 0.00005,
           line1: Number(inputField.current.value),
           line2: Math.pow(Math.sqrt(Number(input1)) + Number(input2), 2),
         },
-        ...res,
+        ...prev,
       ]);
       console.log(res);
     }
   }
   function NewLine() {
-    const firstLine = res[res.length - 1].line2;
-    // const firstLine = res[0].line2;
+    // const firstLine = res[res.length - 1].line2;
+    const firstLine = res[0].line2;
     const nextLine = Math.pow(
       Math.sqrt(firstLine) + Number(inputFieldFactor2.current.value),
       2
     );
-    setRes([
-      ...res,
+    setRes((prev) => [
       {
         id: Math.random() + 0.00005,
         line1: nextLine,
@@ -46,8 +49,8 @@ export default function MagicCalculator() {
           2
         ),
       },
+      ...prev,
     ]);
-    console.log(res);
   }
   function RemoveAll() {
     setRes([]);
@@ -55,19 +58,58 @@ export default function MagicCalculator() {
   }
   function CopieText(text) {
     navigator.clipboard.writeText(text);
+    setMsg("Copied!");
+    setTimeout(() => {
+      setMsg("Copie!");
+    }, 1200);
   }
+
   return (
     <div className="md:px-8 px-2">
       <div className="h-screen flex items-center justify-center">
         <div className="bg-neutral-200 grid grid-cols-5 w-full gap-4 p-4 rounded-md">
           <div className="grid content-center place-content-center md:col-span-2 col-span-full">
-            <Form
+            {/* <Form
               disable={disable}
               inputField={inputField}
               CalculHandler={CalculHandler}
               inputFieldFactor1={inputFieldFactor1}
               inputFieldFactor2={inputFieldFactor2}
-            />
+            /> */}
+            <div className="flex justify-center items-center flex-wrap gap-2 py-4 h-[35vh]">
+              <input
+                min={0}
+                type="number"
+                className="input md:input-md input-sm input-bordered w-full shadow-sm"
+                required
+                placeholder="Enter line number.."
+                ref={inputField}
+              />
+              <input
+                min={0}
+                type="number"
+                required
+                placeholder="First factor.."
+                className="input md:input-md input-sm input-bordered md:w-44 w-36 shadow-sm"
+                ref={inputFieldFactor1}
+              />
+              <input
+                min={0}
+                required
+                type="number"
+                placeholder="Second factor.."
+                className="input md:input-md input-sm input-bordered md:w-44 w-36 shadow-sm"
+                ref={inputFieldFactor2}
+              />
+              <button
+                type="submit"
+                onClick={CalculHandler}
+                disabled={!disable}
+                className="btn w-full btn-outline text-lg shadow-sm md:btn-md btn-sm"
+              >
+                Go
+              </button>
+            </div>
           </div>
           <section className="md:col-span-3 h-[60vh] bg-neutral-100 text-neutral-800 md:p-4 p-2 rounded-md overflow-hidden overflow-y-scroll shadow-sm relative col-span-full">
             <div>
@@ -92,7 +134,42 @@ export default function MagicCalculator() {
             ) : (
               <div className="mb-4 px-1">
                 {res.map((l) => (
-                  <Result key={l.id} result={l} CopieText={CopieText} />
+                  // <Result key={l.id} result={l} CopieText={CopieText} />
+                  <div className="border-b py-4" key={l.id}>
+                    <div className="flex items-center gap-2">
+                      <div className="text-orange-600 font-semibold">
+                        Line 1:{" "}
+                      </div>
+                      <div className="flex items-center gap-0 w-fit">
+                        <p>{l.line1}</p>
+                        <div className="tooltip" data-tip={msg}>
+                          <button
+                            className="btn btn-square btn-xs btn-ghost"
+                            onClick={() => CopieText(l.line1)}
+                          >
+                            <RiClipboardLine size={18} />
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center gap-2">
+                      <div className="text-orange-600 font-semibold">
+                        Line 2:{" "}
+                      </div>
+                      <div className="flex items-center gap-0 w-fit">
+                        <p>{l.line2}</p>
+                        <div className="tooltip" data-tip={msg}>
+                          <button
+                            className="btn btn-square btn-xs btn-ghost"
+                            onClick={() => CopieText(l.line2)}
+                          >
+                            <RiClipboardLine size={18} />
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 ))}
               </div>
             )}
