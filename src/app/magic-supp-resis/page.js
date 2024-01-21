@@ -10,8 +10,7 @@ export default function MagicCalculator() {
   const inputFieldFactor2 = useRef();
   const [disable, setDisable] = useState(true);
   const [res, setRes] = useState([]);
-  function CalculHandler(ev) {
-    ev.preventDefault();
+  function CalculHandler() {
     const input1 = inputField.current.value;
     const input2 = inputFieldFactor1.current.value;
     if (input1 === "" || input2 === 0) {

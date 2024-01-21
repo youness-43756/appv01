@@ -7,7 +7,7 @@ export default function Form({
 }) {
   return (
     <form
-      onSubmit={(ev) => CalculHandler(ev)}
+      onSubmit={(e) => e.preventDefault()}
       className="flex justify-center flex-wrap gap-3 py-4 h-[30vh]"
     >
       <input
@@ -35,6 +35,7 @@ export default function Form({
         ref={inputFieldFactor2}
       />
       <button
+      onClick={CalculHandler}
         disabled={!disable}
         className="btn w-full btn-outline text-lg shadow-sm md:btn-md btn-sm"
       >
