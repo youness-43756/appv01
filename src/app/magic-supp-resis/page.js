@@ -65,11 +65,11 @@ export default function MagicCalculator() {
       <div className="h-screen flex items-center justify-center">
         <div className="bg-neutral-200 grid grid-cols-5 w-full gap-4 p-4 rounded-md">
           <div className="grid content-center place-content-center md:col-span-2 col-span-full">
-            <div className="flex justify-center items-center flex-wrap gap-2 py-4 h-[35vh]">
+            <div className="flex justify-center items-center flex-wrap gap-4 py-4 h-[30vh]">
               <input
                 min={0}
                 type="number"
-                className="input md:input-md input-sm input-bordered w-full shadow-sm"
+                className="input input-md input-bordered w-full shadow-sm"
                 required
                 placeholder="Enter line number.."
                 ref={inputField}
@@ -79,7 +79,7 @@ export default function MagicCalculator() {
                 type="number"
                 required
                 placeholder="First factor.."
-                className="input md:input-md input-sm input-bordered md:w-44 w-36 shadow-sm"
+                className="input input-md input-bordered md:w-44 w-36 shadow-sm"
                 ref={inputFieldFactor1}
               />
               <input
@@ -87,21 +87,21 @@ export default function MagicCalculator() {
                 required
                 type="number"
                 placeholder="Second factor.."
-                className="input md:input-md input-sm input-bordered md:w-44 w-36 shadow-sm"
+                className="input input-md input-bordered md:w-44 w-36 shadow-sm"
                 ref={inputFieldFactor2}
               />
               <button
                 type="submit"
                 onClick={CalculHandler}
                 disabled={!disable}
-                className="btn w-full btn-outline text-lg shadow-sm md:btn-md btn-sm"
+                className="btn w-full btn-neutral text-lg shadow-sm btn-md"
               >
                 Go
               </button>
             </div>
           </div>
-          <section className="md:col-span-3 h-[60vh] bg-neutral-100 text-neutral-800 md:p-4 p-2 rounded-md overflow-hidden overflow-y-scroll shadow-sm relative col-span-full">
-            <div>
+          <section className="md:col-span-3 h-[55vh] bg-neutral-100 text-neutral-800 md:p-4 p-4 rounded-md overflow-hidden overflow-y-scroll shadow-sm relative col-span-full">
+            <div className="">
               <button
                 className="btn btn-sm btn-info text-neutral-100 shadow-sm"
                 onClick={NewLine}
