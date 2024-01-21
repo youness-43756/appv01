@@ -83,7 +83,7 @@ export default function MagicCalculator() {
               </button>
             </div>
             {res.length === 0 ? (
-              <div className="text-2xl font-medium grid content-center place-content-center text-neutral-400 select-none absolute top-0 left-0 bottom-0 right-0">
+              <div className="text-2xl font-medium grid content-center place-content-center text-neutral-400 opacity-45 select-none absolute top-0 left-0 bottom-0 right-0">
                 Empty!
               </div>
             ) : (

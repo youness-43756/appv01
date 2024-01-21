@@ -6,10 +6,7 @@ export default function Form({
   inputFieldFactor1,
 }) {
   return (
-    <form
-      onSubmit={(e) => e.preventDefault()}
-      className="flex justify-center flex-wrap gap-3 py-4 h-[30vh]"
-    >
+    <div className="flex justify-center items-center flex-wrap gap-3 py-4 h-[35vh]">
       <input
         min={0}
         type="number"
@@ -35,12 +32,12 @@ export default function Form({
         ref={inputFieldFactor2}
       />
       <button
-      onClick={CalculHandler}
+        onClick={CalculHandler}
         disabled={!disable}
         className="btn w-full btn-outline text-lg shadow-sm md:btn-md btn-sm"
       >
         Go
       </button>
-    </form>
+    </div>
   );
 }
