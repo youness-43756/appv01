@@ -1,3 +1,5 @@
+"use client";
+
 import { RiClipboardLine } from "react-icons/ri";
 
 export default function Clipboard_button({ msg, text, CopieText }) {

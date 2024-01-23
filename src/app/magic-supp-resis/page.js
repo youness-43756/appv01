@@ -1,5 +1,4 @@
 "use client";
-import { RiClipboardLine } from "react-icons/ri";
 import { useRef, useState } from "react";
 import Add_new_support from "./AddButton/page";
 import Input_Field from "./inputField/page";

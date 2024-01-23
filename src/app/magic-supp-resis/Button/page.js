@@ -1,3 +1,5 @@
+"use client";
+
 import { FaTrash } from "react-icons/fa6";
 
 export default function Remove_All({ RemoveAll }) {

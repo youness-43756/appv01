@@ -1,3 +1,5 @@
+"use client";
+
 import { FaPlus } from "react-icons/fa6";
 
 export default function Add_new_support({ NewLine, disable }) {
