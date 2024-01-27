@@ -101,7 +101,7 @@ export default function MagicCalculator() {
           </button>
         </section>
         <section className="bg-neutral-100 flex-1 shadow-md md:py-4 md:px-4 px-2 py-3 md:max-h-96 overflow-hidden rounded-lg">
-          <div>
+          <div className="px-4">
             <Add_new_support NewSupport={NewSupport} disable={disable} />
             <Remove_All RemoveAll={RemoveAll} />
           </div>
@@ -119,7 +119,7 @@ export default function MagicCalculator() {
                       {line.supNbr}
                     </p>
                     <div>
-                      <div className="flex items-center gap-1 w-fit z-10">
+                      <div className="flex items-center gap-1 w-fit">
                         <p>{line.line1}</p>
                         <Clipboard_button
                           msg={msg}
