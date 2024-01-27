@@ -12,9 +12,11 @@ export default function MagicCalculator() {
   const inputFieldFactor1 = useRef();
   const inputFieldFactor2 = useRef();
   const [res, setRes] = useState([]);
+  const [supportNumber, setSupportNumber] = useState(1);
   function RemoveAll() {
     setRes([]);
     setDisable(() => true);
+    setSupportNumber(1);
   }
   function CopieText(text) {
     navigator.clipboard.writeText(text);
@@ -26,21 +28,26 @@ export default function MagicCalculator() {
   function CalculHandler() {
     const input1 = inputField.current.value;
     const input2 = inputFieldFactor1.current.value;
+
     if (input1 === "" || input2 === 0) {
       alert("Fill all inputs!!");
     } else {
+      setSupportNumber((prev) => prev + 1);
+
       setDisable(() => false);
       setRes((prev) => [
         {
           id: Math.random() + 0.00005,
           line1: Number(inputField.current.value),
           line2: Math.pow(Math.sqrt(Number(input1)) + Number(input2), 2),
+          supNbr: supportNumber,
         },
         ...prev,
       ]);
     }
   }
-  function NewLine() {
+  function NewSupport() {
+    setSupportNumber((prev) => prev + 1);
     const firstLine = res[0].line2;
     const nextLine = Math.pow(
       Math.sqrt(firstLine) + Number(inputFieldFactor2.current.value),
@@ -54,6 +61,7 @@ export default function MagicCalculator() {
           Math.sqrt(nextLine) + Number(inputFieldFactor1.current.value),
           2
         ),
+        supNbr: supportNumber,
       },
       ...prev,
     ]);
@@ -61,8 +69,8 @@ export default function MagicCalculator() {
 
   return (
     <div className="md:px-8 sm:px-4 px-3">
-      <div className="flex md:flex-row flex-col md:gap-6 gap-4 md:py-8 py-6">
-        <section className="md:max-w-sm w-full flex flex-col gap-4">
+      <div className="flex md:flex-row flex-col md:gap-6 gap-4 md:py-8 py-4 md:h-auto h-screen">
+        <section className="md:max-w-sm w-full flex flex-col md:gap-4 gap-2">
           <Input_Field
             inputType="Number"
             inputRef={inputField}
@@ -92,46 +100,47 @@ export default function MagicCalculator() {
             Go
           </button>
         </section>
-        <section className="bg-neutral-100 max-h-72 flex-1 overflow-y-scroll shadow-md md:py-4 md:px-4 px-2 py-3 rounded-lg scroll-smooth">
+        <section className="bg-neutral-100 flex-1 shadow-md md:py-4 md:px-4 px-2 py-3 md:max-h-96 overflow-hidden rounded-lg">
           <div>
-            <Add_new_support NewLine={NewLine} disable={disable} />
+            <Add_new_support NewSupport={NewSupport} disable={disable} />
             <Remove_All RemoveAll={RemoveAll} />
           </div>
-          {res.length === 0 ? (
-            <div className="py-6 text-center md:text-lg text-base font-medium opacity-35 text-neutral-800 select-none">
-              Empty!
-            </div>
-          ) : (
-            <div className="px-3 sm:px-4 md:px-6">
-              {res.map((l) => (
-                <div className="border-b border-gray-300 py-5" key={l.id}>
-                  <div className="flex items-center gap-2">
-                    <div className="text-orange-600 font-semibold">Line 1:</div>
-                    <div className="flex items-center gap-1 w-fit">
-                      <p>{l.line1}</p>
-                      <Clipboard_button
-                        msg={msg}
-                        text={l.line1}
-                        CopieText={CopieText}
-                      />
-                    </div>
-                  </div>
 
-                  <div className="flex items-center gap-2">
-                    <div className="text-orange-600 font-semibold">Line 2:</div>
-                    <div className="flex items-center gap-1 w-fit">
-                      <p>{l.line2}</p>
-                      <Clipboard_button
-                        msg={msg}
-                        text={l.line2}
-                        CopieText={CopieText}
-                      />
+          <div className="px-3 sm:px-4 md:px-6 scroll-smooth h-full">
+            {res.length === 0 ? (
+              <div className="text-center md:text-lg text-base font-medium opacity-25 text-neutral-800 select-none ">
+                Empty!
+              </div>
+            ) : (
+              res.map((line) => (
+                <div className="border-b border-gray-300 py-2" key={line.id}>
+                  <div className="flex gap-3 md:gap-4 items-center">
+                    <p className="text-2xl text-orange-600 font-medium">
+                      {line.supNbr}
+                    </p>
+                    <div>
+                      <div className="flex items-center gap-1 w-fit z-10">
+                        <p>{line.line1}</p>
+                        <Clipboard_button
+                          msg={msg}
+                          text={line.line1}
+                          CopieText={CopieText}
+                        />
+                      </div>
+                      <div className="flex items-center gap-1 w-fit">
+                        <p>{line.line2}</p>
+                        <Clipboard_button
+                          msg={msg}
+                          text={line.line2}
+                          CopieText={CopieText}
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
-              ))}
-            </div>
-          )}
+              ))
+            )}
+          </div>
         </section>
       </div>
     </div>
