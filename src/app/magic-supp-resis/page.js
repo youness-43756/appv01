@@ -89,15 +89,17 @@ export default function MagicCalculator() {
   }
 
   return (
-    <div className="flex flex-col md:flex-row gap-4 md:py-8 py-6 h-fit overflow-hidden">
-      <section className="flex flex-col gap-3 max-w-md w-full">
-        <span className="label-text -mb-2">Enter Line Number: </span>
-        <Input_Field
-          inputType="Number"
-          inputRef={inputField}
-          inputPlaceHolder="Enter line number"
-          inputClassName="input input-md input-bordered w-full shadow-sm"
-        />
+    <div className="flex flex-col md:flex-row gap-4 md:py-8 py-6 h-fit overflow-hidden z-10">
+      <section className="flex flex-col gap-3 md:max-w-md w-full">
+        <div>
+          <span className="label-text -mb-2">Enter Line Number: </span>
+          <Input_Field
+            inputType="Number"
+            inputRef={inputField}
+            inputPlaceHolder="Enter line number"
+            inputClassName="input input-md input-bordered w-full shadow-sm"
+          />
+        </div>
         <div className="flex md:gap-2 gap-1 w-full">
           <div>
             <span className="label-text -mb-2">First Factor: </span>
