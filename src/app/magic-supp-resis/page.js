@@ -128,9 +128,14 @@ export default function MagicCalculator() {
         </button>
       </section>
       <section className="flex-1 md:gap-4 gap-2 md:px-8 sm:px-4 px-2">
-        <div className="">
-          <Add_new_support NewSupport={NewSupport} disable={disable} />
-          <Remove_All RemoveAll={RemoveAll} />
+        <div className="flex justify-between">
+          <div className="flex gap-2">
+            <Add_new_support NewSupport={NewSupport} disable={disable} />
+            <Remove_All RemoveAll={RemoveAll} />
+          </div>
+          <button className="btn btn-sm btn-success text-neutral-100">
+            Save
+          </button>
         </div>
 
         <div className="px-3 sm:px-4 md:px-6 max-h-48 py-1">
