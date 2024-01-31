@@ -1,7 +1,7 @@
 "use client";
 import { useRef, useState } from "react";
 import { harmonicData } from "./harmonicData";
-export default function page() {
+export default function Harmonic() {
   const B_valueField = useRef();
   const C_valueField = useRef();
   const [harmonicPattern, setHarmonicPattern] = useState([]);
