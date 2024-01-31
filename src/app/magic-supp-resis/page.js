@@ -68,22 +68,27 @@ export default function MagicCalculator() {
   }
 
   return (
-    <div className="md:px-8 sm:px-4 px-3">
-      <div className="flex md:flex-row flex-col md:gap-6 gap-4 md:py-8 py-4 md:h-auto h-screen">
-        <section className="md:max-w-sm w-full flex flex-col md:gap-4 gap-2">
-          <Input_Field
-            inputType="Number"
-            inputRef={inputField}
-            inputPlaceHolder="Enter line number"
-            inputClassName="input input-md input-bordered w-full shadow-sm"
-          />
-          <div className="flex gap-2 w-full">
+    <div className="flex flex-col md:flex-row gap-4 md:py-8 py-6 h-fit overflow-hidden">
+      <section className="flex flex-col gap-3 max-w-md w-full">
+        <span className="label-text -mb-2">Enter Line Number: </span>
+        <Input_Field
+          inputType="Number"
+          inputRef={inputField}
+          inputPlaceHolder="Enter line number"
+          inputClassName="input input-md input-bordered w-full shadow-sm"
+        />
+        <div className="flex md:gap-2 gap-1 w-full">
+          <div>
+            <span className="label-text -mb-2">First Factor: </span>
             <Input_Field
               inputType="Number"
               inputRef={inputFieldFactor1}
               inputPlaceHolder="First factor"
               inputClassName="input input-md input-bordered w-full shadow-sm"
             />
+          </div>
+          <div>
+            <span className="label-text -mb-2">Second Factor: </span>
             <Input_Field
               inputType="Number"
               inputRef={inputFieldFactor2}
@@ -91,58 +96,58 @@ export default function MagicCalculator() {
               inputClassName="input input-md input-bordered w-full shadow-sm"
             />
           </div>
-          <button
-            type="submit"
-            onClick={CalculHandler}
-            disabled={!disable}
-            className="btn w-full btn-neutral text-lg shadow-sm btn-md"
-          >
-            Go
-          </button>
-        </section>
-        <section className="bg-neutral-100 flex-1 shadow-md md:py-4 md:px-4 px-2 py-3 md:max-h-96 overflow-hidden rounded-lg">
-          <div className="px-4">
-            <Add_new_support NewSupport={NewSupport} disable={disable} />
-            <Remove_All RemoveAll={RemoveAll} />
-          </div>
+        </div>
+        <button
+          type="submit"
+          onClick={CalculHandler}
+          disabled={!disable}
+          className="btn w-full btn-neutral text-lg shadow-sm btn-md"
+        >
+          Go
+        </button>
+      </section>
+      <section className="flex-1 md:gap-4 gap-2 md:px-8 sm:px-4 px-2">
+        <div className="">
+          <Add_new_support NewSupport={NewSupport} disable={disable} />
+          <Remove_All RemoveAll={RemoveAll} />
+        </div>
 
-          <div className="px-3 sm:px-4 md:px-6 scroll-smooth h-full">
-            {res.length === 0 ? (
-              <div className="text-center md:text-lg text-base font-medium opacity-25 text-neutral-800 select-none ">
-                Empty!
-              </div>
-            ) : (
-              res.map((line) => (
-                <div className="border-b border-gray-300 py-2" key={line.id}>
-                  <div className="flex gap-3 md:gap-4 items-center">
-                    <p className="text-2xl text-orange-600 font-medium">
-                      {line.supNbr}
-                    </p>
-                    <div>
-                      <div className="flex items-center gap-1 w-fit">
-                        <p>{line.line1}</p>
-                        <Clipboard_button
-                          msg={msg}
-                          text={line.line1}
-                          CopieText={CopieText}
-                        />
-                      </div>
-                      <div className="flex items-center gap-1 w-fit">
-                        <p>{line.line2}</p>
-                        <Clipboard_button
-                          msg={msg}
-                          text={line.line2}
-                          CopieText={CopieText}
-                        />
-                      </div>
+        <div className="px-3 sm:px-4 md:px-6 max-h-48 py-1">
+          {res.length === 0 ? (
+            <div className="text-center md:text-lg text-base font-medium opacity-25 text-neutral-800 select-none mt-9">
+              Empty!
+            </div>
+          ) : (
+            res.map((line) => (
+              <div className="border-b border-gray-300 py-2" key={line.id}>
+                <div className="flex gap-3 md:gap-4 items-center">
+                  <p className="text-2xl text-orange-600 font-medium">
+                    {line.supNbr}
+                  </p>
+                  <div>
+                    <div className="flex items-center gap-1 w-fit">
+                      <p>{line.line1}</p>
+                      <Clipboard_button
+                        msg={msg}
+                        text={line.line1}
+                        CopieText={CopieText}
+                      />
+                    </div>
+                    <div className="flex items-center gap-1 w-fit">
+                      <p>{line.line2}</p>
+                      <Clipboard_button
+                        msg={msg}
+                        text={line.line2}
+                        CopieText={CopieText}
+                      />
                     </div>
                   </div>
                 </div>
-              ))
-            )}
-          </div>
-        </section>
-      </div>
+              </div>
+            ))
+          )}
+        </div>
+      </section>
     </div>
   );
 }
