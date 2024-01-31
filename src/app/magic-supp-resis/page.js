@@ -26,20 +26,32 @@ export default function MagicCalculator() {
     }, 750);
   }
   function CalculHandler() {
-    const input1 = inputField.current.value;
-    const input2 = inputFieldFactor1.current.value;
+    const input1 = Number(inputField.current.value);
+    const factor1 = Number(inputFieldFactor1.current.value);
 
-    if (input1 === "" || input2 === 0) {
-      alert("Fill all inputs!!");
-    } else {
-      setSupportNumber((prev) => prev + 1);
-
-      setDisable(() => false);
+    if (input1 === "" || factor1 === 0) {
+      return alert("Fill all inputs!!");
+    }
+    setDisable(() => false);
+    setSupportNumber((prev) => prev + 1);
+    if (input1 > 0) {
       setRes((prev) => [
         {
           id: Math.random() + 0.00005,
-          line1: Number(inputField.current.value),
-          line2: Math.pow(Math.sqrt(Number(input1)) + Number(input2), 2),
+          line1: input1,
+          line2: Math.pow(Math.sqrt(Math.abs(input1)) + factor1, 2),
+          supNbr: supportNumber,
+        },
+        ...prev,
+      ]);
+    } else {
+      const factor2 = Number(inputFieldFactor2.current.value);
+      const newInput = Math.pow(Math.sqrt(Math.abs(input1)) - factor2, 2);
+      setRes((prev) => [
+        {
+          id: Math.random() + 0.00005,
+          line1: newInput,
+          line2: Math.pow(Math.sqrt(Math.abs(newInput)) - factor1, 2),
           supNbr: supportNumber,
         },
         ...prev,
@@ -48,23 +60,32 @@ export default function MagicCalculator() {
   }
   function NewSupport() {
     setSupportNumber((prev) => prev + 1);
+    const factor1 = Number(inputFieldFactor1.current.value);
+    const factor2 = Number(inputFieldFactor2.current.value);
     const firstLine = res[0].line2;
-    const nextLine = Math.pow(
-      Math.sqrt(firstLine) + Number(inputFieldFactor2.current.value),
-      2
-    );
-    setRes((prev) => [
-      {
-        id: Math.random() + 0.00005,
-        line1: nextLine,
-        line2: Math.pow(
-          Math.sqrt(nextLine) + Number(inputFieldFactor1.current.value),
-          2
-        ),
-        supNbr: supportNumber,
-      },
-      ...prev,
-    ]);
+    if (inputField.current.value > 0) {
+      const nextLine = Math.pow(Math.sqrt(Math.abs(firstLine)) + factor2, 2);
+      setRes((prev) => [
+        {
+          id: Math.random() + 0.00005,
+          line1: nextLine,
+          line2: Math.pow(Math.sqrt(Math.abs(nextLine)) + factor1, 2),
+          supNbr: supportNumber,
+        },
+        ...prev,
+      ]);
+    } else {
+      const nextLine = Math.pow(Math.sqrt(Math.abs(firstLine)) - factor2, 2);
+      setRes((prev) => [
+        {
+          id: Math.random() + 0.00005,
+          line1: nextLine,
+          line2: Math.pow(Math.sqrt(Math.abs(nextLine)) - factor1, 2),
+          supNbr: supportNumber,
+        },
+        ...prev,
+      ]);
+    }
   }
 
   return (
