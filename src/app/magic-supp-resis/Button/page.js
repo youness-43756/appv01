@@ -8,7 +8,7 @@ export default function Remove_All({ RemoveAll }) {
       className="btn btn-sm btn-error text-white float-right shadow-sm"
       onClick={RemoveAll}
     >
-      <span>Remove All</span>
+      <span className="hidden sm:block">Remove All</span>
       <FaTrash />
     </button>
   );

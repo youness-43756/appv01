@@ -1,27 +1,37 @@
-import { RiMenu2Fill } from "react-icons/ri";
+"use client";
+import { RiCloseFill, RiMenu2Fill } from "react-icons/ri";
 import { links } from "../data";
 import Link from "next/link";
+import SideBar from "@/components/sideBar/sideBar";
+import { useState } from "react";
 
 export default function Mobile_navbar() {
+  const [IsOpen, setIsOpen] = useState(false);
   return (
-    <div className="dropdown dropdown-end">
+    <div>
+      <button
+        className="cursor-pointer block"
+        onClick={() => setIsOpen((prev) => !prev)}
+      >
+        {IsOpen ? <RiCloseFill size={24} /> : <RiMenu2Fill size={24} />}
+      </button>
       <div
-        tabIndex={0}
-        role="button"
-        className="btn btn-ghost btn-circle avatar"
+        className={`backdrop-blur-sm z-50 bg-white/40 absolute mt-14 ${
+          IsOpen ? "left-0 right-0" : "left-[-1000%]"
+        } top-0  bottom-0 duration-150`}
       >
-        <RiMenu2Fill size={22} />
+        <SideBar>
+          {links.map((l) => (
+            <li
+              key={l.id}
+              onClick={() => setIsOpen(false)}
+              className="hover:bg-white/30 mb-1 rounded-md px-1"
+            >
+              <Link href={l.url}>{l.title}</Link>
+            </li>
+          ))}
+        </SideBar>
       </div>
-      <ul
-        tabIndex={0}
-        className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52 text-neutral-700"
-      >
-        {links.map((link) => (
-          <li key={link.id}>
-            <Link href={link.url}>{link.title}</Link>
-          </li>
-        ))}
-      </ul>
     </div>
   );
 }
