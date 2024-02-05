@@ -93,7 +93,7 @@ export default function MagicCalculator() {
       <div className="text-center py-3 md:py-5">
         <h1 className="text-2xl font-medium">Price action</h1>
       </div>
-      <div className="flex flex-col md:flex-row gap-4 md:py-8 py-6 h-fit overflow-hidden z-10">
+      <div className="flex flex-col md:flex-row gap-4 md:py-8 py-2 h-fit overflow-hidden z-10">
         <section className="flex flex-col gap-3 md:gap-5 md:max-w-md w-full">
           <div>
             <span className="label-text -mb-2">Enter Line Number: </span>

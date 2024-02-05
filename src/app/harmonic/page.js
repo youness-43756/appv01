@@ -30,7 +30,7 @@ export default function Harmonic() {
   }
   return (
     <div>
-      <div className="text-center py-5">
+      <div className="text-center py-3 md:py-5">
         <h1 className="text-2xl font-medium">Harmonic</h1>
       </div>
       <div className="flex flex-col md:flex-row gap-4 md:py-4 py-2">

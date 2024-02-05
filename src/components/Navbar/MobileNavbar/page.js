@@ -25,7 +25,7 @@ export default function Mobile_navbar() {
             <li
               key={l.id}
               onClick={() => setIsOpen(false)}
-              className="hover:bg-white/30 mb-1 rounded-md px-1"
+              className="hover:bg-white/30 mb-1 rounded-md p-2 cursor-pointer"
             >
               <Link href={l.url}>{l.title}</Link>
             </li>
